@@ -30,7 +30,7 @@ RUN     conda update conda -y
 RUN 	mamba install pip -y
 RUN	mamba install -c conda-forge r-base -y
 RUN     mamba install -c conda-forge -y r-arrow r-glmnet r-biocmanager
-RUN 	R -e "install.packages('fpp3', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN 	R -e "install.packages(c('Quandl', 'NasdaqDataLink', 'fpp3'), dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 #	ruby
 RUN     gem install ffi-rzmq
