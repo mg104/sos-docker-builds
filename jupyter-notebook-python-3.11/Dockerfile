@@ -27,7 +27,7 @@ RUN     apt-get install -y npm vim libgmp3-dev software-properties-common
 RUN     apt-get install -y libtool libffi-dev ruby ruby-dev make  libzmq3-dev libczmq-dev
 
 # Install some packages for our examples
-RUN     conda update conda -y
+RUN     mamba update conda -y
 RUN 	mamba install pip -y
 RUN     mamba install -c conda-forge jupyterlab-git -y
 RUN	    mamba install -c conda-forge r-base -y
