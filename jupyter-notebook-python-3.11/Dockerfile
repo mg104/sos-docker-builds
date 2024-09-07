@@ -83,14 +83,10 @@ RUN     pip3 install docker markdown wand graphviz imageio pillow nbformat
 # 	Trigger rerun for sos updates
 ARG	DUMMY=unknown
 RUN     DUMMY=${DUMMY} pip3 install sos sos-notebook sos-r sos-julia sos-python sos-matlab sos-bash sos-ruby sos-javascript sos-bioinfo markdown-kernel
-RUN     pip3 install jupyter-contrib-core transient-display-data jupyterlab-sos
+RUN     pip3 install jupyter-contrib-core transient-display-data jupyterlab-sos jupyterlab-git
+RUN     jupyter labextension install @jupyterlab/git
+RUN     jupyter server extension enable --py jupyterlab_git
 RUN     jupyter lab build --dev-build=False --minimize=False
-
-#       Jupyterlab git extension
-RUN     mamba install -c conda-forge jupyterlab-git -y
-RUN     jupyter labextension install @jupyterlab/git && \
-        jupyter server extension enable --py jupyterlab_git && \
-        jupyter lab build --dev-build=False --minimize=False
 
 #       Markdown kernel
 RUN     python3 -m markdown_kernel.install --prefix /opt/conda/
