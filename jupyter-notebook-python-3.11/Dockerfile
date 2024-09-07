@@ -20,7 +20,7 @@ RUN     apt-get update
 RUN     apt-get install -y graphviz zlib1g-dev libbz2-dev libcurl4-openssl-dev libssl-dev
 RUN     apt-get install -y texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 RUN     apt-get install -y octave
-RUN     apt-get install gh
+RUN     apt-get install -y gh
 RUN     octave --eval 'pkg install -forge dataframe'
 
 RUN     apt-get install -y npm vim libgmp3-dev software-properties-common
@@ -29,9 +29,9 @@ RUN     apt-get install -y libtool libffi-dev ruby ruby-dev make  libzmq3-dev li
 # Install some packages for our examples
 RUN     conda update conda -y
 RUN 	mamba install pip -y
-RUN     mamba install conda-forge::jupyterlab-git
+RUN     mamba install -c conda-forge jupyterlab-git -y
 RUN	    mamba install -c conda-forge r-base -y
-RUN     mamba install -c conda-forge -y r-arrow r-glmnet r-biocmanager
+RUN     mamba install -c conda-forge r-arrow r-glmnet r-biocmanager -y
 RUN 	R -e "install.packages(c('Quandl', 'NasdaqDataLink', 'fpp3'), dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 #	ruby
@@ -67,7 +67,7 @@ RUN     mamba install -y pyarrow -c conda-forge
 RUN     pip3 install docker markdown wand graphviz imageio pillow nbformat
 
 # 	Trigger rerun for sos updates
-ARG	DUMMY=unknown
+ARG	    DUMMY=unknown
 RUN     DUMMY=${DUMMY} pip3 install sos sos-notebook sos-r sos-julia sos-python sos-matlab sos-bash sos-ruby sos-javascript sos-bioinfo markdown-kernel
 RUN     pip3 install jupyter-contrib-core transient-display-data jupyterlab-sos
 RUN     jupyter lab build --dev-build=False --minimize=False
