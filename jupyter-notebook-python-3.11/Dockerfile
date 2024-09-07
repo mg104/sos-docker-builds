@@ -9,7 +9,7 @@
 #
 
 # tag created in Fev 2019
-FROM jupyter/datascience-notebook
+FROM    jupyter/datascience-notebook
 
 LABEL   maintainer="Bo Peng <Bo.Peng@bcm.edu>"
 
@@ -20,6 +20,7 @@ RUN     apt-get update
 RUN     apt-get install -y graphviz zlib1g-dev libbz2-dev libcurl4-openssl-dev libssl-dev
 RUN     apt-get install -y texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 RUN     apt-get install -y octave
+RUN     apt-get install -y git
 RUN     apt-get install -y gh
 RUN     octave --eval 'pkg install -forge dataframe'
 
@@ -85,8 +86,7 @@ RUN     DUMMY=${DUMMY} pip3 install sos sos-notebook sos-r sos-julia sos-python 
 RUN     pip3 install jupyter-contrib-core transient-display-data jupyterlab-sos
 RUN     jupyter lab build --dev-build=False --minimize=False
 
-#       git & associated goodies
-RUN     apt-get install -y git
+#       Jupyterlab git extension
 RUN     mamba install -c conda-forge jupyterlab-git -y
 RUN     jupyter labextension install @jupyterlab/git && \
         jupyter server extension enable --py jupyterlab_git && \
