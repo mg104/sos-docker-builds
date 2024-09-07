@@ -54,9 +54,21 @@ RUN     pip3 install octave_kernel
 RUN     python3 -m octave_kernel install --user
 
 #       JavaScript
-RUN     npm rebuild
-RUN     npm install -g ijavascript
-RUN     ijsinstall --spec-path=full
+#       Install NVM (Node Version Manager)
+RUN     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+
+#       Ensure NVM is loaded
+ENV     NVM_DIR=/root/.nvm
+RUN     . "$NVM_DIR/nvm.sh" && \
+        nvm install 20.14.0 && \
+        nvm use 20.14.0 && \
+        npm install -g npm
+
+# JavaScript Kernel
+RUN     . "$NVM_DIR/nvm.sh" && \
+        npm rebuild && \
+        npm install -g ijavascript && \
+        ijsinstall --spec-path=full
 
 #       Julia
 RUN     julia -e "using Pkg;Pkg.add([\"Feather\", \"DataFrames\", \"NamedArrays\"])"
