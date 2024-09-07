@@ -29,8 +29,7 @@ RUN     apt-get install -y libtool libffi-dev ruby ruby-dev make  libzmq3-dev li
 # Install some packages for our examples
 RUN     mamba update conda -y
 RUN 	mamba install pip -y
-RUN     mamba install -c conda-forge jupyterlab-git -y
-RUN	    mamba install -c conda-forge r-base -y
+RUN	mamba install -c conda-forge r-base -y
 RUN     mamba install -c conda-forge r-arrow r-glmnet r-biocmanager -y
 RUN 	R -e "install.packages(c('Quandl', 'NasdaqDataLink', 'fpp3'), dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
@@ -81,10 +80,17 @@ RUN     mamba install -y pyarrow -c conda-forge
 RUN     pip3 install docker markdown wand graphviz imageio pillow nbformat
 
 # 	Trigger rerun for sos updates
-ARG	    DUMMY=unknown
+ARG	DUMMY=unknown
 RUN     DUMMY=${DUMMY} pip3 install sos sos-notebook sos-r sos-julia sos-python sos-matlab sos-bash sos-ruby sos-javascript sos-bioinfo markdown-kernel
 RUN     pip3 install jupyter-contrib-core transient-display-data jupyterlab-sos
 RUN     jupyter lab build --dev-build=False --minimize=False
+
+#       git & associated goodies
+RUN     apt-get install -y git
+RUN     mamba install -c conda-forge jupyterlab-git -y
+RUN     jupyter labextension install @jupyterlab/git && \
+        jupyter server extension enable --py jupyterlab_git && \
+        jupyter lab build --dev-build=False --minimize=False
 
 #       Markdown kernel
 RUN     python3 -m markdown_kernel.install --prefix /opt/conda/
