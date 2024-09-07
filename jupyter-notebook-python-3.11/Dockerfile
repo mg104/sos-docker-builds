@@ -20,6 +20,7 @@ RUN     apt-get update
 RUN     apt-get install -y graphviz zlib1g-dev libbz2-dev libcurl4-openssl-dev libssl-dev
 RUN     apt-get install -y texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 RUN     apt-get install -y octave
+RUN     apt-get install gh
 RUN     octave --eval 'pkg install -forge dataframe'
 
 RUN     apt-get install -y npm vim libgmp3-dev software-properties-common
@@ -28,7 +29,8 @@ RUN     apt-get install -y libtool libffi-dev ruby ruby-dev make  libzmq3-dev li
 # Install some packages for our examples
 RUN     conda update conda -y
 RUN 	mamba install pip -y
-RUN	mamba install -c conda-forge r-base -y
+RUN     mamba install conda-forge::jupyterlab-git
+RUN	    mamba install -c conda-forge r-base -y
 RUN     mamba install -c conda-forge -y r-arrow r-glmnet r-biocmanager
 RUN 	R -e "install.packages(c('Quandl', 'NasdaqDataLink', 'fpp3'), dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
@@ -60,7 +62,6 @@ RUN     ijsinstall --spec-path=full
 RUN     julia -e "using Pkg;Pkg.add([\"Feather\", \"DataFrames\", \"NamedArrays\"])"
 
 RUN     mamba install -y pyarrow -c conda-forge
-
 
 #	SOS
 RUN     pip3 install docker markdown wand graphviz imageio pillow nbformat
