@@ -59,6 +59,7 @@ RUN     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh
 
 #       Ensure NVM is loaded
 ENV     NVM_DIR=/root/.nvm
+RUN     chmod +x $NVM_DIR/nvm.sh
 RUN     . "$NVM_DIR/nvm.sh" && \
         nvm install 20.14.0 && \
         nvm use 20.14.0 && \
