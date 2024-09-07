@@ -9,7 +9,7 @@
 #
 
 # tag created in Fev 2019
-FROM jupyter/datascience-notebook:python-3.12
+FROM jupyter/datascience-notebook
 
 LABEL   maintainer="Bo Peng <Bo.Peng@bcm.edu>"
 
