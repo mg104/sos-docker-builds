@@ -58,8 +58,9 @@ RUN     python3 -m octave_kernel install --user
 RUN     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
 
 #       Ensure NVM is loaded
-ENV     NVM_DIR=/root/.nvm
-RUN     chmod +x $NVM_DIR/nvm.sh
+ENV     NVM_DIR=/home/jovyan/.nvm
+
+# Install stable version of npm
 RUN     . "$NVM_DIR/nvm.sh" && \
         nvm install 20.14.0 && \
         nvm use 20.14.0 && \
