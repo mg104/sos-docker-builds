@@ -9,7 +9,7 @@
 #
 
 # tag created in Fev 2019
-FROM    jupyter/datascience-notebook:python-3.11
+FROM jupyter/datascience-notebook:python-3.12
 
 LABEL   maintainer="Bo Peng <Bo.Peng@bcm.edu>"
 
@@ -55,8 +55,7 @@ RUN     python3 -m octave_kernel install --user
 
 #       JavaScript
 RUN     npm rebuild
-# RUN     npm install -g ijavascript
-RUN     mamba install -c conda-forge ijavascript
+RUN     npm install -g ijavascript
 RUN     ijsinstall --spec-path=full
 
 #       Julia
